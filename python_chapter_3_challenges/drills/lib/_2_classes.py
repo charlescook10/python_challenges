@@ -64,7 +64,17 @@
 #   > greeter.good_morning('Bobby')
 #   'Good morning, Bobby!'
 
-
+class Greeter():
+    def __init__(self):
+        pass
+    def hello(self, name):
+        return f"Hello, {name}!"
+    def goodbye(self, name):
+        return f"Goodbye, {name}!"
+    def good_night(self, name):
+        return f"Good night, {name}!"
+    def good_morning(self, name):
+        return f"Good morning, {name}!"
 
 # Class name: Basket
 # Purpose: store a list of items
@@ -85,6 +95,13 @@
 #   > basket.list_items()
 #   ['apple', 'banana', 'orange']
 
+class Basket():
+    def __init__(self):
+        self.basket = []
+    def add(self, item):
+        self.basket.append(item)
+    def list_items(self):
+        return self.basket
 
 
 # Class name: Calculator
@@ -120,7 +137,27 @@
 #   > calculator.list_history()
 #   [3, 12, -1, 0.875]
 
-
+class Calculator():
+    def __init__(self):
+        self.history = []
+    def add(self, num1, num2):
+        result = num1 + num2
+        self.history.append(result)
+        return result
+    def multiply(self, num1, num2):
+        result = num1 * num2
+        self.history.append(result)
+        return result
+    def subtract(self, num1, num2):
+        result = num1 - num2
+        self.history.append(result)
+        return result
+    def divide(self, num1, num2):
+        result = num1 / num2
+        self.history.append(result)
+        return result
+    def list_history(self):
+        return self.history
 
 # Class name: Cohort
 # Purpose: store a list of students
@@ -146,7 +183,15 @@
 #   > cohort.list_employed_by('NASA')
 #   [{'name' : 'Jo', 'employer' : 'NASA'}, {'name' : 'Alex', 'employer' : 'NASA'}]
 
-
+class Cohort():
+    def __init__(self):
+        self.cohort_list = []
+    def add_student(self, student):
+        self.cohort_list.append(student)
+    def list_students(self):
+        return self.cohort_list
+    def list_employed_by(self, employer):
+        return list(filter(lambda cohort: cohort['employer'] == employer, self.cohort_list))
 
 # Class name: Person
 # Purpose: store a person's name, pets and addresses
@@ -181,5 +226,35 @@
 #   '10 South Street'
 #   > person.get_pets()
 #   'Alex has 3 pets: a cat called Arthur, a dog called Judith, a goldfish called Gwen'
+
+class Person():
+    def __init__(self, p_dict):
+        self.person = p_dict
+    def __get_address(self, name):
+        address = list(filter(lambda d: d["name"] == name, self.person["addresses"]))
+        # returns a dict 
+        # example: {'name' : 'work', 'building' : '50', 'street' : 'Commercial Street'}
+        return address[0]
+    def get_work_address(self):
+        work_address = self.__get_address("work")
+        return f"{work_address['building']} {work_address['street']}"
+    def get_home_address(self):
+        home_address = self.__get_address("home")
+        return f"{home_address['building']} {home_address['street']}"
+    def get_pets(self):
+        pets = self.person["pets"]
+        num_of_pets = len(pets)
+        return_string = f"{self.person['name']} has {num_of_pets} pets:"
+        
+        i = 0
+        for pet in pets:
+            return_string += f" a {pet['animal']} called {pet['name']}"
+            i+=1
+            if i < num_of_pets:
+                return_string += ","
+            
+        
+        return return_string
+
 
 
